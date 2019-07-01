@@ -1,0 +1,41 @@
+/*
+Task
+
+You are at position [0, 0] in maze NxN and you can only move in one of the four cardinal directions (i.e. North, East, South, West). Return true if you can reach position [N-1, N-1] or false otherwise.
+
+Empty positions are marked .. Walls are marked W. Start and exit positions are empty in all test cases.
+*/
+
+import java.util.*;
+import java.lang.*;
+
+public class Finder {
+    
+    static boolean pathFinder(String maze) {
+        String array[]=maze.split("\n");
+     //   System.out.println(Arrays.toString(array));
+        String Matrix[][]=new String[array.length][array[0].length()];
+        for(int i=0;i<Matrix.length;i++)
+        {
+          for(int j=0;j<Matrix[0].length;j++)
+          {
+            Matrix[i][j]=Character.toString(array[i].charAt(j));
+          }
+        }
+     //   System.out.println(Arrays.deepToString(Matrix));
+        return isReachable(0,0,Matrix);
+    }
+    static boolean isReachable(int i,int j,String Matrix[][])
+    {
+      if(i>=Matrix.length || j>=Matrix[0].length || i<0 || j<0 )
+        return false;
+      if(Matrix[i][j].equals("W"))
+        return false;
+      if(Matrix[i][j].equals("D"))
+        return false;
+      if(i==Matrix.length-1 && j==Matrix.length-1)
+        return true;
+      Matrix[i][j]="D";
+      return isReachable(i+1,j,Matrix) || isReachable(i,j+1,Matrix) || isReachable(i,j-1,Matrix) ||isReachable(i-1,j,Matrix);
+    }
+}
