@@ -1,0 +1,49 @@
+/*
+Your job is to create a calculator which evaluates expressions in Reverse Polish notation.
+
+For example expression 5 1 2 + 4 * + 3 - (which is equivalent to 5 + ((1 + 2) * 4) - 3 in normal notation) should evaluate to 14.
+
+For your convenience, the input is formatted such that a space is provided between every token.
+
+Empty expression should evaluate to 0.
+
+Valid operations are +, -, *, /.
+
+You may assume that there won't be exceptional situations (like stack underflow or division by zero).
+
+*/
+
+import java.util.*;
+public class Calc {
+
+  public double evaluate(String expr) {
+  if(expr.length()==0)
+    return 0;
+  Stack<Double> st=new Stack<>();
+  String expr1[]=expr.split(" ");
+    for(int i=0;i<expr1.length;i++)
+    {
+      switch(expr1[i])
+      {
+        case "+":
+          st.push(st.pop()+st.pop());
+        break;
+        case "-":
+          double temp=st.pop();
+           st.push(st.pop()-temp);
+        break;
+        case "/":
+           temp=st.pop();
+           st.push(st.pop()/temp);
+        break;
+        case "*":
+           st.push(st.pop()*st.pop());
+        break;
+        default:
+          st.push(Double.parseDouble(expr1[i]));
+      }
+      System.out.println(st);
+    }
+    return st.pop();
+  }
+}
